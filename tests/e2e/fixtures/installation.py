@@ -65,7 +65,7 @@ def ebs_addon(metadata, region, request, account_id, cluster):
     def on_create():
         ebs_csi_role_name = rand_name("AmazonEKS_EBS_CSI_DriverRole-")
         policy_name = "AmazonEBSCSIDriverPolicy"
-        policy_arn = [f"arn:aws:iam::aws:policy/service-role/{policy_name}"]
+        policy_arn = [f"arn:aws-us-gov:iam::aws:policy/service-role/{policy_name}"]
         create_iam_service_account(
             "ebs-csi-controller-sa",
             "kube-system",

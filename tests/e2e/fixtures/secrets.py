@@ -21,9 +21,9 @@ from e2e.resources.external import (
 )
 
 KUBEFLOW_SERVICE_ACCOUNT_NAME = "kubeflow-secrets-manager-sa"
-IAM_AWS_SSM_READ_ONLY_POLICY = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+IAM_AWS_SSM_READ_ONLY_POLICY = "arn:aws-us-gov:iam::aws:policy/AmazonSSMReadOnlyAccess"
 IAM_SECRETS_MANAGER_READ_WRITE_POLICY = (
-    "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+    "arn:aws-us-gov:iam::aws:policy/SecretsManagerReadWrite"
 )
 
 

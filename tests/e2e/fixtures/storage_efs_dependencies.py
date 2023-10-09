@@ -124,7 +124,7 @@ def create_efs_driver_sa(
 
     EFS_IAM_POLICY = "https://raw.githubusercontent.com/kubernetes-sigs/aws-efs-csi-driver/v1.5.4/docs/iam-policy-example.json"
     policy_name = rand_name("efs-iam-policy-")
-    policy_arn = [f"arn:aws:iam::{account_id}:policy/{policy_name}"]
+    policy_arn = [f"arn:aws-us-gov:iam::{account_id}:policy/{policy_name}"]
 
     def on_create():
         associate_iam_oidc_provider(cluster, region)

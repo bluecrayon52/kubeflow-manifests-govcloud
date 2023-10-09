@@ -89,7 +89,7 @@ After installing Kubeflow on AWS with one of the available [deployment options](
    --cluster=$CLUSTER_NAME \
    --name="profiles-controller-service-account" \
    --namespace=kubeflow \
-   --attach-policy-arn="arn:aws:iam::${AWS_ACCOUNT_ID}:policy/${PROFILE_CONTROLLER_POLICY_NAME}" \
+   --attach-policy-arn="arn:aws-us-gov:iam::${AWS_ACCOUNT_ID}:policy/${PROFILE_CONTROLLER_POLICY_NAME}" \
    --region=$CLUSTER_REGION \
    --override-existing-serviceaccounts \
    --approve
@@ -109,7 +109,7 @@ After installing Kubeflow on AWS with one of the available [deployment options](
        {
        "Effect": "Allow",
        "Principal": {
-           "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_URL}"
+           "Federated": "arn:aws-us-gov:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_URL}"
        },
        "Action": "sts:AssumeRoleWithWebIdentity",
        "Condition": {
@@ -123,14 +123,14 @@ After installing Kubeflow on AWS with one of the available [deployment options](
    EOF
    ```
 
-2. [Create an IAM policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html) to scope the permissions for the Profile. For simplicity, we will use the `arn:aws:iam::aws:policy/AmazonS3FullAccess` policy as an example.
+2. [Create an IAM policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html) to scope the permissions for the Profile. For simplicity, we will use the `arn:aws-us-gov:iam::aws:policy/AmazonS3FullAccess` policy as an example.
 
 3. [Create an IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) for the Profile using the scoped policy from the previous step.
 
    ```bash
    aws iam create-role --role-name $PROFILE_NAME-$CLUSTER_NAME-role --assume-role-policy-document file://trust.json
 
-   aws iam attach-role-policy --role-name $PROFILE_NAME-$CLUSTER_NAME-role --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
+   aws iam attach-role-policy --role-name $PROFILE_NAME-$CLUSTER_NAME-role --policy-arn arn:aws-us-gov:iam::aws:policy/AmazonS3FullAccess
    ```
 
 4. Create a user in your configured auth provider (e.g. Cognito or Dex) or use an existing user.

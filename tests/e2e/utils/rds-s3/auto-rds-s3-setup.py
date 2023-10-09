@@ -162,7 +162,7 @@ def profile_trust_policy(account_id, service_account_name):
             {
                 "Effect": "Allow",
                 "Principal": {
-                    "Federated": f"arn:aws:iam::{account_id}:oidc-provider/{oidc_url}"
+                    "Federated": f"arn:aws-us-gov:iam::{account_id}:oidc-provider/{oidc_url}"
                 },
                 "Action": "sts:AssumeRoleWithWebIdentity",
                 "Condition": {
@@ -189,15 +189,15 @@ def create_pipeline_irsa_s3_policy():
                 "Effect": "Allow",
                 "Action": "s3:*",
                 "Resource": [
-                    f"arn:aws:s3:::{S3_BUCKET_NAME}",
-                    f"arn:aws:s3:::{S3_BUCKET_NAME}/*",
+                    f"arn:aws-us-gov:s3:::{S3_BUCKET_NAME}",
+                    f"arn:aws-us-gov:s3:::{S3_BUCKET_NAME}/*",
                 ],
             }
         ],
     }
     policy = IAMPolicy(name=policy_name, region=CLUSTER_REGION)
     policy.create(policy_document=s3_policy_json)
-    custom_policy_arn = f"arn:aws:iam::{acc_id}:policy/{policy_name}"
+    custom_policy_arn = f"arn:aws-us-gov:iam::{acc_id}:policy/{policy_name}"
     return custom_policy_arn
 
 
@@ -514,8 +514,8 @@ def setup_iam_service_account():
 def create_secrets_iam_service_account():
     print("Creating secrets IAM service account...")
     iam_policies = [
-        "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess",
-        "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+        "arn:aws-us-gov:iam::aws:policy/AmazonSSMReadOnlyAccess",
+        "arn:aws-us-gov:iam::aws:policy/SecretsManagerReadWrite",
     ]
 
     create_iam_service_account(

@@ -10,9 +10,19 @@ import random
 import string
 import yaml
 import boto3
+from botocore.config import Config
 import mysql.connector
 import subprocess
 import tempfile
+
+config = Config(
+    region_name = 'us-gov-east-1',
+    signature_version = 'v4',
+    retries = {
+        'max_attempts': 10,
+        'mode': 'standard'
+    }
+)
 
 
 def safe_open(filepath, mode="r"):
@@ -123,7 +133,7 @@ def load_json_file(filepath):
 
 
 def get_aws_account_id():
-    return boto3.client("sts").get_caller_identity().get("Account")
+    return boto3.client("sts", config=config).get_caller_identity().get("Account")
 
 
 def get_eks_client(region):
@@ -409,7 +419,7 @@ def create_addon(addon_name, cluster_name, account_id, role_name, region=None):
     cmd += f"--name {addon_name}".split()
     cmd += f"--cluster {cluster_name}".split()
     cmd += (
-        f"--service-account-role-arn arn:aws:iam::{account_id}:role/{role_name}".split()
+        f"--service-account-role-arn arn:aws-us-gov:iam::{account_id}:role/{role_name}".split()
     )
     if region:
         cmd += f"--region {region}".split()

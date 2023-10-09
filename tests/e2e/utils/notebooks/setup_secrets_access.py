@@ -30,8 +30,8 @@ def setup_secrets_manager_service_account():
         cluster_name=CLUSTER_NAME,
         region=CLUSTER_REGION,
         iam_policy_arns=[
-            "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess",
-            "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+            "arn:aws-us-gov:iam::aws:policy/AmazonSSMReadOnlyAccess",
+            "arn:aws-us-gov:iam::aws:policy/SecretsManagerReadWrite"
         ]
     )
 

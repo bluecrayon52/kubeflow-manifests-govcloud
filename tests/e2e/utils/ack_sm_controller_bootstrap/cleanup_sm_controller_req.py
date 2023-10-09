@@ -4,6 +4,7 @@
 import logging
 import json
 import boto3
+from botocore.config import Config
 
 from e2e.utils.utils import (
     load_json_file,
@@ -22,18 +23,26 @@ from e2e.utils.utils import print_banner, load_yaml_file
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+config = Config(
+    region_name = 'us-gov-east-1',
+    signature_version = 'v4',
+    retries = {
+        'max_attempts': 10,
+        'mode': 'standard'
+    }
+)
 
 def get_account_id():
-    return boto3.client("sts").get_caller_identity().get("Account")
+    return boto3.client("sts", config=config).get_caller_identity().get("Account")
 
 def delete_iam_role(role_name, policy_name, region):
     iam_client = get_iam_client(region=region)
     try:
         iam_client.detach_role_policy(
-            RoleName=role_name, PolicyArn="arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
+            RoleName=role_name, PolicyArn="arn:aws-us-gov:iam::aws:policy/AmazonSageMakerFullAccess"
         )
         acc_id = get_account_id()
-        custom_policy_arn = f"arn:aws:iam::{acc_id}:policy/{policy_name}"
+        custom_policy_arn = f"arn:aws-us-gov:iam::{acc_id}:policy/{policy_name}"
         iam_client.detach_role_policy(
             RoleName=role_name, PolicyArn=custom_policy_arn
         ) 
@@ -45,7 +54,7 @@ def delete_iam_role(role_name, policy_name, region):
 
 def delete_iam_policy(policy_name, region):
     acc_id = get_account_id()
-    custom_policy_arn = f"arn:aws:iam::{acc_id}:policy/{policy_name}"
+    custom_policy_arn = f"arn:aws-us-gov:iam::{acc_id}:policy/{policy_name}"
     iam_client = get_iam_client(region=region)
     iam_client.delete_policy(PolicyArn=custom_policy_arn)
     print(f"Deleted IAM Policy : {policy_name}")

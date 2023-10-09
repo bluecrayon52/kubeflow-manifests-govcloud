@@ -312,7 +312,7 @@ def profile_trust_policy(cluster, region, account_id, associate_oidc):
             {
                 "Effect": "Allow",
                 "Principal": {
-                    "Federated": f"arn:aws:iam::{account_id}:oidc-provider/{oidc_url}"
+                    "Federated": f"arn:aws-us-gov:iam::{account_id}:oidc-provider/{oidc_url}"
                 },
                 "Action": "sts:AssumeRoleWithWebIdentity",
                 "Condition": {
@@ -343,14 +343,14 @@ def profile_role(region, metadata, request, profile_trust_policy):
         )
 
         iam_client.attach_role_policy(
-            RoleName=role_name, PolicyArn="arn:aws:iam::aws:policy/AmazonS3FullAccess"
+            RoleName=role_name, PolicyArn="arn:aws-us-gov:iam::aws:policy/AmazonS3FullAccess"
         )
 
     def on_delete():
         name = metadata.get(metadata_key) or role_name
         iam_client = get_iam_client(region=region)
         iam_client.detach_role_policy(
-            RoleName=name, PolicyArn="arn:aws:iam::aws:policy/AmazonS3FullAccess"
+            RoleName=name, PolicyArn="arn:aws-us-gov:iam::aws:policy/AmazonS3FullAccess"
         )
         iam_client.delete_role(RoleName=name)
 

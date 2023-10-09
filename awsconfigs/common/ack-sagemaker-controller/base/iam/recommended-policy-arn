@@ -1,1 +1,1 @@
-arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+arn:aws-us-gov:iam::aws:policy/AmazonSageMakerFullAccess

@@ -1,5 +1,6 @@
 import argparse
 import boto3
+from botocore.config import Config
 import subprocess
 import string
 import random
@@ -7,6 +8,15 @@ import yaml
 import urllib.request
 from shutil import which
 from time import sleep
+
+config = Config(
+    region_name = 'us-gov-east-1',
+    signature_version = 'v4',
+    retries = {
+        'max_attempts': 10,
+        'mode': 'standard'
+    }
+)
 
 
 def main():
@@ -614,9 +624,9 @@ if __name__ == "__main__":
     DIRECTORY_PATH = args.directory
     SKIP_DRIVER_INSTALLATION = args.skip_driver_installation
 
-    AWS_ACCOUNT_ID = boto3.client("sts").get_caller_identity()["Account"]
+    AWS_ACCOUNT_ID = boto3.client("sts", config=config).get_caller_identity()["Account"]
     EFS_IAM_POLICY_NAME = "AmazonEKS_EFS_CSI_Driver_Policy" + EFS_FILE_SYSTEM_NAME
-    EFS_IAM_POLICY_ARN = f"arn:aws:iam::{AWS_ACCOUNT_ID}:policy/{EFS_IAM_POLICY_NAME}"
+    EFS_IAM_POLICY_ARN = f"arn:aws-us-gov:iam::{AWS_ACCOUNT_ID}:policy/{EFS_IAM_POLICY_NAME}"
 
     EFS_DYNAMIC_PROVISIONING_STORAGE_CLASS_FILE_PATH = (
         DIRECTORY_PATH

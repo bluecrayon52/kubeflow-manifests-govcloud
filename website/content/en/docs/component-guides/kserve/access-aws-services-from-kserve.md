@@ -20,7 +20,7 @@ weight = 10
 
 1. Create Service Account with IAM Role using [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html). The following command attaches both `AmazonEC2ContainerRegistryReadOnly` and `AmazonS3ReadOnlyAccess` IAM policies:
     ```
-    eksctl create iamserviceaccount --name ${SERVICE_ACCOUNT_NAME} --namespace ${PROFILE_NAMESPACE} --cluster ${CLUSTER_NAME} --region ${CLUSTER_REGION} --attach-policy-arn=arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly --attach-policy-arn=arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess  --override-existing-serviceaccounts --approve
+    eksctl create iamserviceaccount --name ${SERVICE_ACCOUNT_NAME} --namespace ${PROFILE_NAMESPACE} --cluster ${CLUSTER_NAME} --region ${CLUSTER_REGION} --attach-policy-arn=arn:aws-us-gov:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly --attach-policy-arn=arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess  --override-existing-serviceaccounts --approve
     ```
      > NOTE: You can use ECR (`AmazonEC2ContainerRegistryReadOnly`) and S3 (`AmazonS3ReadOnlyAccess`) ReadOnly managed policies. We recommend creating fine grained policy for production usecase. 
 

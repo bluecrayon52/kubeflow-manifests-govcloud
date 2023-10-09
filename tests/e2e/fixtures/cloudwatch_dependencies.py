@@ -28,14 +28,14 @@ def cloudwatch_bootstrap(metadata, region, request, cluster):
         iam_client = get_iam_client(region)
         iam_client.attach_role_policy(
             RoleName=nodeRole,
-            PolicyArn="arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy",
+            PolicyArn="arn:aws-us-gov:iam::aws:policy/CloudWatchAgentServerPolicy",
         )
 
     def detach_cloudwatch_policy(nodeRole):
         iam_client = get_iam_client(region)
         iam_client.detach_role_policy(
             RoleName=nodeRole,
-            PolicyArn="arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy",
+            PolicyArn="arn:aws-us-gov:iam::aws:policy/CloudWatchAgentServerPolicy",
         )
 
     def install_cloudwatch_container_insights(ClusterName):

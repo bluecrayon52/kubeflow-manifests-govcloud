@@ -1,5 +1,6 @@
 import argparse
 import boto3
+from botocore.config import Config
 import subprocess
 from shutil import which
 from time import sleep
@@ -15,6 +16,15 @@ from utils import (
     kubectl_apply,
     write_yaml_file,
     load_yaml_file,
+)
+
+config = Config(
+    region_name = 'us-gov-east-1',
+    signature_version = 'v4',
+    retries = {
+        'max_attempts': 10,
+        'mode': 'standard'
+    }
 )
 
 FSX_FILE_SYSTEM_ID = ""
@@ -472,9 +482,9 @@ if __name__ == "__main__":
     WRITE_TO_FILE = args.write_to_file
     CONFIG_FILENAME = args.config_filename
 
-    AWS_ACCOUNT_ID = boto3.client("sts").get_caller_identity()["Account"]
+    AWS_ACCOUNT_ID = boto3.client("sts", config=config).get_caller_identity()["Account"]
     FSX_IAM_POLICY_NAME = "fsx-csi-driver-policy" + FSX_FILE_SYSTEM_NAME
-    FSX_IAM_POLICY_ARN = f"arn:aws:iam::{AWS_ACCOUNT_ID}:policy/{FSX_IAM_POLICY_NAME}"
+    FSX_IAM_POLICY_ARN = f"arn:aws-us-gov:iam::{AWS_ACCOUNT_ID}:policy/{FSX_IAM_POLICY_NAME}"
     FSX_STATIC_PROVISIONING_FILE_PATH = (
         "../../deployments/add-ons/storage/fsx-for-lustre/static-provisioning"
     )

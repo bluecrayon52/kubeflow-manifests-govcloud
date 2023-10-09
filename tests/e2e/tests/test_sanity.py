@@ -192,7 +192,7 @@ def host(setup_load_balancer):
 @pytest.fixture(scope="class")
 def sagemaker_execution_role(region, metadata, request):
     sagemaker_execution_role_name = "role-" + RANDOM_PREFIX
-    managed_policies = ["arn:aws:iam::aws:policy/AmazonS3FullAccess", "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"]
+    managed_policies = ["arn:aws-us-gov:iam::aws:policy/AmazonS3FullAccess", "arn:aws-us-gov:iam::aws:policy/AmazonSageMakerFullAccess"]
     role = IAMRole(name=sagemaker_execution_role_name, region=region, policy_arns=managed_policies)
     metadata_key = "sagemaker_execution_role"
 

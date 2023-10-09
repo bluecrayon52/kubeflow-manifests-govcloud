@@ -122,7 +122,7 @@ eksctl create iamserviceaccount \
     --name fsx-csi-controller-sa \
     --namespace kube-system \
     --cluster $CLUSTER_NAME \
-    --attach-policy-arn arn:aws:iam::$AWS_ACCOUNT_ID:policy/Amazon_FSx_Lustre_CSI_Driver \
+    --attach-policy-arn arn:aws-us-gov:iam::$AWS_ACCOUNT_ID:policy/Amazon_FSx_Lustre_CSI_Driver \
     --region $CLUSTER_REGION \
     --approve \
     --override-existing-serviceaccounts 

@@ -208,17 +208,17 @@ kustomize build awsconfigs/common/istio-ingress/overlays/https | kubectl apply -
             serviceAccount:
                 name: alb-ingress-controller
                 namespace: kubeflow
-                policyArn: arn:aws:iam::123456789012:policy/alb_ingress_controller_kube-eks-clusterxxx
+                policyArn: arn:aws-us-gov:iam::123456789012:policy/alb_ingress_controller_kube-eks-clusterxxx
     cluster:
         name: kube-eks-cluster
         region: us-west-2
     route53:
         rootDomain:
-            certARN: arn:aws:acm:us-west-2:123456789012:certificate/9d8c4bbc-3b02-4a48-8c7d-d91441c6e5af
+            certARN: arn:aws-us-gov:acm:us-west-2:123456789012:certificate/9d8c4bbc-3b02-4a48-8c7d-d91441c6e5af
             hostedZoneId: XXXXX
             name: example.com
         subDomain:
-            certARN: arn:aws:acm:us-west-2:123456789012:certificate/d1d7b641c238-4bc7-f525-b7bf-373cc726
+            certARN: arn:aws-us-gov:acm:us-west-2:123456789012:certificate/d1d7b641c238-4bc7-f525-b7bf-373cc726
             hostedZoneId: XXXXX
             name: platform.example.com
     ```

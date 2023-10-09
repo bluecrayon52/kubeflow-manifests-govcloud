@@ -229,8 +229,8 @@ IAM Role for Service Account (IRSA) which allows the use of AWS IAM permission b
                   "Effect": "Allow",
                   "Action": "s3:*",
                   "Resource": [
-                     "arn:aws:s3:::${S3_BUCKET}",
-                     "arn:aws:s3:::${S3_BUCKET}/*"
+                     "arn:aws-us-gov:s3:::${S3_BUCKET}",
+                     "arn:aws-us-gov:s3:::${S3_BUCKET}/*"
                         ]
                      }
                ]
@@ -247,7 +247,7 @@ IAM Role for Service Account (IRSA) which allows the use of AWS IAM permission b
             {
             "Effect": "Allow",
             "Principal": {
-               "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_PROVIDER_URL}"
+               "Federated": "arn:aws-us-gov:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_PROVIDER_URL}"
             },
             "Action": "sts:AssumeRoleWithWebIdentity",
             "Condition": {
@@ -274,7 +274,7 @@ IAM Role for Service Account (IRSA) which allows the use of AWS IAM permission b
             {
             "Effect": "Allow",
             "Principal": {
-               "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_PROVIDER_URL}"
+               "Federated": "arn:aws-us-gov:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_PROVIDER_URL}"
             },
             "Action": "sts:AssumeRoleWithWebIdentity",
             "Condition": {
@@ -347,7 +347,7 @@ yq e '.s3.secretName = env(S3_SECRET)' -i charts/common/aws-secrets-manager/rds-
    ```bash
    eksctl utils associate-iam-oidc-provider --region=$CLUSTER_REGION --cluster=$CLUSTER_NAME --approve
 
-   eksctl create iamserviceaccount  --name kubeflow-secrets-manager-sa  --namespace kubeflow  --cluster $CLUSTER_NAME --attach-policy-arn  arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess --attach-policy-arn arn:aws:iam::aws:policy/SecretsManagerReadWrite --override-existing-serviceaccounts   --approve --region $CLUSTER_REGION
+   eksctl create iamserviceaccount  --name kubeflow-secrets-manager-sa  --namespace kubeflow  --cluster $CLUSTER_NAME --attach-policy-arn  arn:aws-us-gov:iam::aws:policy/AmazonSSMReadOnlyAccess --attach-policy-arn arn:aws-us-gov:iam::aws:policy/SecretsManagerReadWrite --override-existing-serviceaccounts   --approve --region $CLUSTER_REGION
    ```
 
    2. Run the following commands to install AWS Secrets & Configuration Provider with Kubernetes Secrets Store CSI driver:

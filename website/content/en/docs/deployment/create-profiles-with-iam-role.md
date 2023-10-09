@@ -48,7 +48,7 @@ After installing Kubeflow on AWS with one of the available [deployment options](
        {
        "Effect": "Allow",
        "Principal": {
-           "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_URL}"
+           "Federated": "arn:aws-us-gov:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_URL}"
        },
        "Action": "sts:AssumeRoleWithWebIdentity",
        "Condition": {
@@ -73,8 +73,8 @@ After installing Kubeflow on AWS with one of the available [deployment options](
             "Effect": "Allow",
             "Action": "s3:*",
             "Resource": [
-                "arn:aws:s3:::${S3_BUCKET}",
-                "arn:aws:s3:::${S3_BUCKET}/*"
+                "arn:aws-us-gov:s3:::${S3_BUCKET}",
+                "arn:aws-us-gov:s3:::${S3_BUCKET}/*"
                   ]
                }
          ]

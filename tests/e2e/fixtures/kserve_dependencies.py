@@ -58,7 +58,7 @@ def kserve_iam_service_account(metadata, cluster, region, request):
             namespace=PROFILE_NAMESPACE,
             cluster_name=cluster,
             region=region,
-            iam_policy_arns=["arn:aws:iam::aws:policy/AmazonS3FullAccess"],
+            iam_policy_arns=["arn:aws-us-gov:iam::aws:policy/AmazonS3FullAccess"],
         )
 
     def on_delete():

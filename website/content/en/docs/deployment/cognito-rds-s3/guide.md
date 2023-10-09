@@ -90,7 +90,7 @@ If you are not using this feature, you can create a profile by just specifying e
 
         ```yaml
         cognitoUserpool:
-            ARN: arn:aws:cognito-idp:us-west-2:123456789012:userpool/us-west-2_yasI9dbxF
+            ARN: arn:aws-us-gov:cognito-idp:us-west-2:123456789012:userpool/us-west-2_yasI9dbxF
             appClientId: 5jmk7ljl2a74jk3n0a0fvj3l31
             domainAliasTarget: xxxxxxxxxx.cloudfront.net
             domain: auth.platform.example.com
@@ -100,20 +100,20 @@ If you are not using this feature, you can create a profile by just specifying e
                 serviceAccount:
                     name: alb-ingress-controller
                     namespace: kubeflow
-                    policyArn: arn:aws:iam::123456789012:policy/alb_ingress_controller_kube-eks-clusterxxx
+                    policyArn: arn:aws-us-gov:iam::123456789012:policy/alb_ingress_controller_kube-eks-clusterxxx
         cluster:  
             name: kube-eks-cluster
             region: us-west-2
         route53:
             rootDomain:
-                certARN: arn:aws:acm:us-east-1:123456789012:certificate/9d8c4bbc-3b02-4a48-8c7d-d91441c6e5af
+                certARN: arn:aws-us-gov:acm:us-east-1:123456789012:certificate/9d8c4bbc-3b02-4a48-8c7d-d91441c6e5af
                 hostedZoneId: XXXXX
                 name: example.com
             subDomain:
-                us-west-2-certARN: arn:aws:acm:us-west-2:123456789012:certificate/d1d7b641c238-4bc7-f525-b7bf-373cc726
+                us-west-2-certARN: arn:aws-us-gov:acm:us-west-2:123456789012:certificate/d1d7b641c238-4bc7-f525-b7bf-373cc726
                 hostedZoneId: XXXXX
                 name: platform.example.com
-                us-east-1-certARN: arn:aws:acm:us-east-1:123456789012:certificate/373cc726-f525-4bc7-b7bf-d1d7b641c238
+                us-east-1-certARN: arn:aws-us-gov:acm:us-east-1:123456789012:certificate/373cc726-f525-4bc7-b7bf-d1d7b641c238
         ```
     - Run the following command to install the script dependencies and delete the resources:
         ```bash

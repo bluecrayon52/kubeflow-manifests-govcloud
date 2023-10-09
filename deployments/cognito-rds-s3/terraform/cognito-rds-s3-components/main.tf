@@ -75,7 +75,7 @@ module "kubeflow_secrets_manager_irsa" {
   create_kubernetes_service_account = true
   kubernetes_service_account        = "kubeflow-secrets-manager-sa"
   irsa_iam_role_name                = format("%s-%s-%s-%s", "kf-secrets-manager", "irsa", var.addon_context.eks_cluster_id, var.addon_context.aws_region_name)
-  irsa_iam_policies                 = ["arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess", "arn:aws:iam::aws:policy/SecretsManagerReadWrite"]
+  irsa_iam_policies                 = ["arn:aws-us-gov:iam::aws:policy/AmazonSSMReadOnlyAccess", "arn:aws-us-gov:iam::aws:policy/SecretsManagerReadWrite"]
   irsa_iam_role_path                = var.addon_context.irsa_iam_role_path
   irsa_iam_permissions_boundary     = var.addon_context.irsa_iam_permissions_boundary
   eks_cluster_id                    = var.addon_context.eks_cluster_id
@@ -90,7 +90,7 @@ module "kubeflow_pipeline_irsa" {
   create_kubernetes_service_account = false
   kubernetes_service_account        = "ml-pipeline"
   irsa_iam_role_name                = format("%s-%s-%.22s-%.16s", "ml-pipeline", "irsa", var.addon_context.eks_cluster_id, var.addon_context.aws_region_name)
-  irsa_iam_policies                 = ["arn:aws:iam::aws:policy/AmazonS3FullAccess"]
+  irsa_iam_policies                 = ["arn:aws-us-gov:iam::aws:policy/AmazonS3FullAccess"]
   irsa_iam_role_path                = var.addon_context.irsa_iam_role_path
   irsa_iam_permissions_boundary     = var.addon_context.irsa_iam_permissions_boundary
   eks_cluster_id                    = var.addon_context.eks_cluster_id
@@ -105,7 +105,7 @@ module "user_namespace_irsa" {
   create_kubernetes_service_account = false
   kubernetes_service_account        = "default-editor"
   irsa_iam_role_name                = format("%s-%s-%.22s-%.16s", "user-namespace", "irsa", var.addon_context.eks_cluster_id, var.addon_context.aws_region_name)
-  irsa_iam_policies                 = ["arn:aws:iam::aws:policy/AmazonS3FullAccess"]
+  irsa_iam_policies                 = ["arn:aws-us-gov:iam::aws:policy/AmazonS3FullAccess"]
   irsa_iam_role_path                = var.addon_context.irsa_iam_role_path
   irsa_iam_permissions_boundary     = var.addon_context.irsa_iam_permissions_boundary
   eks_cluster_id                    = var.addon_context.eks_cluster_id

@@ -8,9 +8,9 @@
         "sagemaker:*"
       ],
       "Resource": [
-        "arn:aws:sagemaker:*:*:domain/*",
-        "arn:aws:sagemaker:*:*:user-profile/*",
-        "arn:aws:sagemaker:*:*:app/*"
+        "arn:aws-us-gov:sagemaker:*:*:domain/*",
+        "arn:aws-us-gov:sagemaker:*:*:user-profile/*",
+        "arn:aws-us-gov:sagemaker:*:*:app/*"
       ]
     }
   ]

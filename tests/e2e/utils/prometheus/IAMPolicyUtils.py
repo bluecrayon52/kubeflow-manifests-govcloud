@@ -6,7 +6,7 @@ IAM_CLIENT = boto3.client(service_name='iam')
 
 # Will create a permission policy if there is no existing policy with the given policy name.    
 def create_policy_if_not_exist(policy_name, permission_policy_file_name):
-    policy_arn = f'arn:aws:iam::{get_aws_account_id()}:policy/{policy_name}'
+    policy_arn = f'arn:aws-us-gov:iam::{get_aws_account_id()}:policy/{policy_name}'
     try:
         IAM_CLIENT.get_policy(PolicyArn=policy_arn).get('Policy').get('Arn')
     except:
@@ -22,7 +22,7 @@ def create_policy_if_not_exist(policy_name, permission_policy_file_name):
 
 # Will try to delete the given IAM policy.
 def delete_IAM_policy(policy_name):
-    policy_arn = f'arn:aws:iam::{get_aws_account_id()}:policy/{policy_name}'
+    policy_arn = f'arn:aws-us-gov:iam::{get_aws_account_id()}:policy/{policy_name}'
     print("Attempting to delete policy with arn {policy_arn}")
     try:
         IAM_CLIENT.delete_policy(PolicyArn=policy_arn)

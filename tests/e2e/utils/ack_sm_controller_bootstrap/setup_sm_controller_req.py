@@ -4,6 +4,7 @@
 import logging
 import json
 import boto3
+from botocore.config import Config
 
 from e2e.utils.utils import (
     load_json_file,
@@ -22,6 +23,14 @@ from e2e.utils.utils import print_banner, load_yaml_file, write_env_to_yaml
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+config = Config(
+    region_name = 'us-gov-east-1',
+    signature_version = 'v4',
+    retries = {
+        'max_attempts': 10,
+        'mode': 'standard'
+    }
+)
 
 def profile_trust_policy(
     cluster, region, account_id
@@ -37,7 +46,7 @@ def profile_trust_policy(
             {
                 "Effect": "Allow",
                 "Principal": {
-                    "Federated": f"arn:aws:iam::{account_id}:oidc-provider/{oidc_url}"
+                    "Federated": f"arn:aws-us-gov:iam::{account_id}:oidc-provider/{oidc_url}"
                 },
                 "Action": "sts:AssumeRoleWithWebIdentity",
                 "Condition": {
@@ -68,7 +77,7 @@ def create_ack_oidc_role(cluster_name, region):
     print(f"Created IAM Role : {oidc_role_arn}")
 
     iam_client.attach_role_policy(
-        RoleName=role_name, PolicyArn="arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
+        RoleName=role_name, PolicyArn="arn:aws-us-gov:iam::aws:policy/AmazonSageMakerFullAccess"
     )
     policy = IAMPolicy(name=policy_name, region=region)
     policy.create(
@@ -76,7 +85,7 @@ def create_ack_oidc_role(cluster_name, region):
             "../../awsconfigs/infra_configs/iam_ack_oidc_sm_studio_policy.json"
         )
     )
-    custom_policy_arn = f"arn:aws:iam::{acc_id}:policy/{policy_name}"
+    custom_policy_arn = f"arn:aws-us-gov:iam::{acc_id}:policy/{policy_name}"
     iam_client.attach_role_policy(
         RoleName=role_name, PolicyArn=custom_policy_arn
     )
@@ -89,7 +98,7 @@ def get_role_arn(role_name, region):
     return oidc_role_arn
 
 def get_account_id():
-    return boto3.client("sts").get_caller_identity().get("Account")
+    return boto3.client("sts", config=config).get_caller_identity().get("Account")
 
 def write_params(oidc_role_arn, region, env_file_path, config_file_path):
     output_dict = {

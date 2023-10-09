@@ -25,7 +25,7 @@ export PROFILE_NAMESPACE=kubeflow-user-example-com
 
 ```shell
 # add S3 permissions to service account
-eksctl create iamserviceaccount --cluster=$CLUSTER_NAME --name default-editor --namespace $PROFILE_NAMESPACE --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess --region $CLUSTER_REGION --override-existing-serviceaccounts --approve
+eksctl create iamserviceaccount --cluster=$CLUSTER_NAME --name default-editor --namespace $PROFILE_NAMESPACE --attach-policy-arn arn:aws-us-gov:iam::aws:policy/AmazonS3FullAccess --region $CLUSTER_REGION --override-existing-serviceaccounts --approve
 ```
 
 2. Create a PodDefault with configurations for the S3 bucket where data is located, and the service account to use.

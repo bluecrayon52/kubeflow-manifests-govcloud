@@ -25,7 +25,7 @@ spec:
   plugins:
   - kind: AwsIamForServiceAccount
     spec:
-      awsIamRole: arn:aws:iam::123456789012:role/some-profile-role
+      awsIamRole: arn:aws-us-gov:iam::123456789012:role/some-profile-role
 ```
 The AWS IAM permissions granted to the experiment pods are specified in the profile's `awsIamRole`. 
 
@@ -42,7 +42,7 @@ kubectl get serviceaccount -n ${PROFILE_NAME} default-editor -oyaml | grep "eks.
 ```
 The output should look similar to the following:
 ```bash
-eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/some-profile-role
+eks.amazonaws.com/role-arn: arn:aws-us-gov:iam::123456789012:role/some-profile-role
 ```
 
 #### Experiment trial spec configuration
